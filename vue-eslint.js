@@ -429,7 +429,7 @@ let VueConfig = {
     'vue/html-closing-bracket-spacing' : 'warn',
 
     /**
-     *
+     * script标签内的缩进
      * --fix
      * enforce consistent indentation in <script>
      * https://github.com/vuejs/eslint-plugin-vue/blob/master/docs/rules/script-indent.md
