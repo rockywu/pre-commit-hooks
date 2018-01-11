@@ -1,2 +1,5 @@
 # pre-commit-hooks
-用于测试pre-commit-hooks机制
+
+#### 定制vue项目本地客户端git commit拦截脚本
+
+用于检查客户端是否符合项目规范
