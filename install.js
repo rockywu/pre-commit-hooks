@@ -3,9 +3,9 @@ const fs = require('fs');
 const path = require('path');
 const self = path.resolve(__dirname);
 const root = path.resolve(__dirname, '..', '..');
-const execSync = require("child_process").execSync;
+const execSync = require('child_process').execSync;
 const exists = fs.existsSync || path.existsSync;
-let pg = require("./package.json")
+let pg = require('./package.json');
 let rootPackagePath = root + '/package.json';
 let rootEslintConfigPath = root + '/.eslint.config.js';
 let selfEslintConfigPath = self + '/.eslint.config.js';
@@ -13,7 +13,7 @@ let rootEslintrcPath = root + '/.eslintrc.js';
 let selfEslintrcPath = self + '/vue-eslint.js';
 let rootEslintignorePath = root + '/.eslintignore';
 
-console.log("install pre-commit-hook(version:" + pg.version + ")");
+console.log('install pre-commit-hook(version:' + pg.version + ')');
 
 //处理package修改
 let packageContent = null;
@@ -49,7 +49,7 @@ if (packageContent !== null && typeof packageContent == 'object') {
 
 //copy .eslint.config.js -> .eslint.config.js
 try {
-  if(!exists(rootEslintConfigPath)) {
+  if (!exists(rootEslintConfigPath)) {
     execSync(`cp ${selfEslintConfigPath} ${rootEslintConfigPath}`);
   }
 } catch (e) {
@@ -66,6 +66,14 @@ try {
 //copy vue-eslint.js -> .eslintrc.js
 try {
   execSync(`cp -f ${selfEslintrcPath} ${rootEslintrcPath}`);
+} catch (e) {
+  console.log(e);
+}
+
+//update eslint:npm update -D eslint@^4.15.0
+console.log(`update eslint:npm update -D eslint@^4.15.0`);
+try {
+  execSync(`cd ${root} && npm update -D eslint@^4.15.0`);
 } catch (e) {
   console.log(e);
 }
