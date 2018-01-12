@@ -1,12 +1,24 @@
 #!/usr/bin/env node
 const fs = require('fs');
 const path = require('path');
+const self = path.resolve(__dirname);
 const root = path.resolve(__dirname, '..', '..');
+const execSync = require("child_process").execSync;
+const exists = fs.existsSync || path.existsSync;
+let pg = require("./package.json")
+let rootPackagePath = root + '/package.json';
+let rootEslintConfigPath = root + '/.eslint.config.js';
+let selfEslintConfigPath = self + '/.eslint.config.js';
+let rootEslintrcPath = root + '/.eslintrc.js';
+let selfEslintrcPath = self + '/vue-eslint.js';
+let rootEslintignorePath = root + '/.eslintignore';
+
+console.log("install pre-commit-hook(version:" + pg.version + ")");
 
 //处理package修改
 let packageContent = null;
 try {
-  packageContent = fs.readFileSync(root + '/package.json', 'utf-8');
+  packageContent = fs.readFileSync(rootPackagePath, 'utf-8');
   packageContent = JSON.parse(packageContent);
 } catch (e) {
   //do nothing
@@ -28,37 +40,35 @@ if (packageContent !== null && typeof packageContent == 'object') {
   Object.assign(packageContent, baseConfig);
   Object.assign(packageContent.scripts, scriptsConfig);
   try {
-    fs.writeFileSync(root + '/package.json', JSON.stringify(packageContent, null, 2), 'utf-8');
+    fs.writeFileSync(rootPackagePath, JSON.stringify(packageContent, null, 2), 'utf-8');
   } catch (e) {
     //do nothing
     console.log(e);
   }
 }
-//
-//
-// //copy .eslint.config.js -> .eslint.config.js
-// try {
-//   execSync("cp -i ./node_modules/pre-commit-hooks/.eslint.config.js .eslint.config.js");
-// } catch (e) {
-//   console.log(e);
-// }
-//
-//
-// const execSync = require("child_process").execSync;
-// //创建.eslintignore
-// try {
-//   execSync("touch .eslintignore");
-// } catch(e) {
-//   console.log(e);
-// }
-//
-// //copy vue-eslint.js -> .eslintrc.js
-// try {
-//   execSync("cp -i ./node_modules/pre-commit-hooks/vue-eslint.js .eslintrc.js");
-// } catch (e) {
-//   console.log(e);
-// }
-//
-console.log('install pre-commit-hooks');
+
+//copy .eslint.config.js -> .eslint.config.js
+try {
+  if(!exists(rootEslintConfigPath)) {
+    execSync(`cp ${selfEslintConfigPath} ${rootEslintConfigPath}`);
+  }
+} catch (e) {
+  console.log(e);
+}
+
+//创建.eslintignore
+try {
+  execSync(`touch ${rootEslintignorePath}`);
+} catch (e) {
+  console.log(e);
+}
+
+//copy vue-eslint.js -> .eslintrc.js
+try {
+  execSync(`cp -f ${selfEslintrcPath} ${rootEslintrcPath}`);
+} catch (e) {
+  console.log(e);
+}
+
 
 
