@@ -34,9 +34,5 @@
     "eslint-plugin-vue": "^4.2.0",
     "pre-commit": "^1.2.2",
     "vue-eslint-parser": "^2.0.2"
-  },
-  "peerDependencies": {
-    "eslint": "^4.15.0",
-    "pre-commit": "^1.2.2"
   }
 }
