@@ -4,6 +4,8 @@
   "description": "use pre-commit ",
   "main": "index.js",
   "scripts": {
+    "install": "node install.js",
+    "uninstall": "node uninstall.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -20,16 +22,17 @@
     "url": "https://github.com/rockywu/pre-commit-hooks/issues"
   },
   "homepage": "https://github.com/rockywu/pre-commit-hooks#readme",
-  "devDependencies": {
+  "dependencies": {
     "babel-eslint": "^8.2.1",
-    "eslint": "^4.14.0",
+    "eslint": "^4.15.0",
     "eslint-codeframe-formatter": "^1.0.2",
     "eslint-config-standard": "^11.0.0-beta.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
-    "eslint-plugin-vue": "^4.0.1",
-    "pre-commit": "^1.2.2"
+    "eslint-plugin-vue": "^4.2.0",
+    "pre-commit": "^1.2.2",
+    "vue-eslint-parser": "^2.0.2"
   }
 }

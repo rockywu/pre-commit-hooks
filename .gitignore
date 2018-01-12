@@ -60,3 +60,5 @@ typings/
 # intelliJ IDEA
 .idea
 
+package-lock.json
+
