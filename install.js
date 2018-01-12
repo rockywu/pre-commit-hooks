@@ -13,6 +13,13 @@ let rootEslintrcPath = root + '/.eslintrc.js';
 let selfEslintrcPath = self + '/vue-eslint.js';
 let rootEslintignorePath = root + '/.eslintignore';
 
+console.log("install pre-commit");
+try {
+  execSync(`node ${root}/node_modules/pre-commit/install.js`);
+} catch (e) {
+  console.log(e);
+}
+
 console.log('install pre-commit-hook(version:' + pg.version + ')');
 
 //处理package修改
