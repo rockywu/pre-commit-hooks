@@ -69,14 +69,3 @@ try {
 } catch (e) {
   console.log(e);
 }
-
-//update eslint:npm update -D eslint@^4.15.0
-console.log(`update eslint:npm update -D eslint@^4.15.0`);
-try {
-  execSync(`cd ${root} && npm update -D eslint@^4.15.0`);
-} catch (e) {
-  console.log(e);
-}
-
-
-
