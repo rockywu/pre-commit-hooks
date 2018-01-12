@@ -6,7 +6,8 @@
   "scripts": {
     "install": "node install.js",
     "uninstall": "node uninstall.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "patch": "npm version patch && npm publish"
   },
   "repository": {
     "type": "git",
