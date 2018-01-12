@@ -4,7 +4,9 @@
   "description": "use pre-commit ",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "precommit-msg": "echo 'Pre-commit checks...' && exit 0",
+    "eslint": "exit 0"
   },
   "repository": {
     "type": "git",
@@ -31,5 +33,9 @@
     "eslint-plugin-standard": "^3.0.1",
     "eslint-plugin-vue": "^4.0.1",
     "pre-commit": "^1.2.2"
-  }
+  },
+  "pre-commit": [
+    "precommit-msg",
+    "eslint"
+  ]
 }
