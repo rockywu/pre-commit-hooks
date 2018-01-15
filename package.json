@@ -7,9 +7,10 @@
     "install": "node install.js",
     "uninstall": "node uninstall.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "directory": "rm -rf publish && mkdir -p publish",
-    "copy": "cp LICENSE eslint.sh package.json README.md install.js uninstall.js vue-eslint.js .npmignore .gitignore .eslintrc.js .eslintignore .eslint.config.js ./publish",
-    "patch": "npm version patch && npm run directory && npm run copy && cd ./publish"
+    "resetDir": "rm -rf publish && mkdir -p publish",
+    "copyFile": "cp LICENSE eslint.sh package.json README.md install.js uninstall.js vue-eslint.js .npmignore .gitignore .eslintrc.js .eslintignore .eslint.config.js ./publish",
+    "release": "npm run resetDir && npm run copyFile && cd publish && npm publish",
+    "patch": "npm version patch && npm run release"
   },
   "repository": {
     "type": "git",
