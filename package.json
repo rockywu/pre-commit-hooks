@@ -10,7 +10,8 @@
     "resetDir": "rm -rf publish && mkdir -p publish",
     "copyFile": "cp -r LICENSE shell package.json README.md install.js uninstall.js vue-eslint.js .npmignore .gitignore .eslintignore .eslint.config.js ./publish",
     "release": "npm run resetDir && npm run copyFile && cd ./publish && npm publish",
-    "patch": "npm version patch && npm run release"
+    "patch": "npm version patch && npm run release",
+    "scan": "/bin/bash ./shell/scan.sh"
   },
   "repository": {
     "type": "git",
@@ -36,7 +37,12 @@
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
     "eslint-plugin-vue": "^4.2.0",
+    "eslint-friendly-formatter": "^3.0.0",
     "pre-commit": "^1.2.2",
     "vue-eslint-parser": "^2.0.2"
+  },
+  "devDependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.16.2"
   }
 }

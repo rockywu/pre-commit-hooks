@@ -1,0 +1,16 @@
+**/*.min.js
+**/static
+#scan/MobBS/src/common/photoswipe.js
+#
+#scan/mogoroom-renterembed-h5/src/pages/houseList/index.vue
+#scan/mogoroom-renterembed-h5/src/pages/roomDetail.vue
+#scan/mogoroom-renterembed-h5/src/pages/sign.vue
+#
+#scan/Partner-fe/src/landlord/flats/pages/ownerContract/component/step2.vue
+#scan/Partner-fe/src/landlord/flats/pages/ownerContract/component/step2Component/lease.vue
+#scan/Partner-fe/src/landlord/flats/pages/ownerContract/component/step2Component/scatteredLease.vue
+#scan/Partner-fe/src/landlord/flats/pages/ownerContract/component/step2Component/rentFreeLease.vue
+#scan/Partner-fe/src/landlord/flats/pages/ownerContract/component/step4.vue
+#
+#scan/Partner-fe/src/landlord/flats/pages/ownerContractList/component/ownerBill.vue
+#scan/Partner-fe/src/landlord/flats/pages/ownerContractList/component/ownerContractListDetail.vue

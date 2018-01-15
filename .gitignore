@@ -63,6 +63,7 @@ typings/
 package-lock.json
 
 scan/*
+scan-rs/*
 
 publish
 

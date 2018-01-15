@@ -436,11 +436,12 @@ let VueConfig = {
      * enforce consistent indentation in <script>
      * https://github.com/vuejs/eslint-plugin-vue/blob/master/docs/rules/script-indent.md
      */
-    'vue/script-indent' : ['error', 2, {
-      'baseIndent': 1,
-      'switchCase': 0,
-      'ignores': []
-    }]
+    'vue/script-indent' : 0,
+    // 'vue/script-indent' : ['error', 2, {
+    //   'baseIndent': 1,
+    //   'switchCase': 0,
+    //   'ignores': []
+    // }]
 
   }
 }

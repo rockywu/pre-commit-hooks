@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,height=device-height">
+    <title>基础环图</title>
+    <style>::-webkit-scrollbar{display:none;}</style>
+    <style>
+        .container {
+            width: 1080px;
+            margin: 0 auto;
+        }
+        .msg {
+            color: red;
+            text-align: center;
+        }
+        #mountNode > div {
+            padding-top: 20px;
+            margin-bottom: 20px;
+            border-top: 1px solid #eaeae2;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>扫描报告：</h2>
+        <pre id="message" class="msg"></pre>
+        <div id="mountNode"></div>
+    </div>
+<script>/*Fixing iframe window.innerHeight 0 issue in Safari*/document.body.clientHeight;</script>
+<script src="/static/axios.min.js"></script>
+<script src="/static/g2.min.js"></script>
+<script src="/static/data-set.min.js"></script>
+<script>
+
+  function formatData(data) {
+    var source = {
+      error : [],
+      warning : [],
+      all : []
+    };
+    data.forEach(function(v, k) {
+        if(v === null) return;
+        var [type, name, cnt] = v.split(":");
+        type = type == "^" ? "error" : type;
+        var data = {
+            item : name,
+            type : type,
+            count: parseInt(cnt, 10) || 0
+        };
+        if(source[type]) {
+            source[type].push(data);
+        }
+        source.all.push(data);
+    });
+    return source;
+  }
+  var projectName = '<%= name%>';
+  axios.get("/api/" + projectName + ".json").
+  then(function(res) {
+    var data = formatData(res.data);
+    drawChat("mountNode", data.all, "全部");
+    drawChat("mountNode", data.warning, "Warning");
+    drawChat("mountNode", data.error, "Error");
+  });
+
+  axios.get("/api/" + projectName + ".txt", {}).
+  then(function(res){
+    document.querySelector("#message").innerHTML = res.data;
+  });
+  function drawChat(id ,data, type) {
+    const { DataView } = DataSet;
+      const dv = new DataView();
+      dv.source(data).transform({
+        type: 'percent',
+        field: 'count',
+        dimension: 'item',
+        as: 'percent'
+      });
+      const chart = new G2.Chart({
+        container: 'mountNode',
+        forceFit: true,
+        height: window.innerHeight,
+      });
+      chart.source(dv, {
+        percent: {
+          formatter: val => {
+            val = Math.round(val * 100 * 100)/100 + '%';
+            return val;
+          }
+        }
+      });
+      chart.coord('theta', {
+        radius: 0.75,
+        innerRadius: 0.6
+      });
+      chart.tooltip({
+        showTitle: false,
+        itemTpl: '<li><span style="background-color:{color};" class="g2-tooltip-marker"></span>{name}: {value}</li>'
+      });
+      // 辅助文本
+      chart.guide().html({
+        position: [ '50%', '50%' ],
+        html: '<div style="color:#8c8c8c;font-size: 14px;text-align: center;width: 10em;"><span style="color:red;font-size:20px;">'+type+'</span><br>Vue扫描结果<br><span style="color:#8c8c8c;font-size:20px">项目：'+projectName+'</span></div>',
+        alignX: 'middle',
+        alignY: 'middle'
+      });
+      chart.intervalStack()
+        .position('percent')
+        .color('item')
+        .label('percent', {
+          formatter: (val, item) => {
+            return item.point.item + ': ' + val;
+          }
+        })
+        .tooltip('item*percent', (item, percent) => {
+          percent = Math.round(percent * 100 * 100)/100  + "%";
+          return {
+            name: item,
+            value: percent
+          };
+        })
+        .style({
+          lineWidth: 1,
+          stroke: '#fff'
+        });
+      chart.render();
+  }
+
+</script>
+</body>
+</html>
