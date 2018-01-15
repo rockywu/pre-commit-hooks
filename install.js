@@ -34,7 +34,6 @@ try {
 //定义添加内容
 let baseConfig = {
   'pre-commit': [
-    'precommit-msg',
     'eslint'
   ]
 };
