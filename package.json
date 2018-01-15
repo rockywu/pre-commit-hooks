@@ -8,7 +8,7 @@
     "uninstall": "node uninstall.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "resetDir": "rm -rf publish && mkdir -p publish",
-    "copyFile": "cp LICENSE eslint.sh package.json README.md install.js uninstall.js vue-eslint.js .npmignore .gitignore .eslintrc.js .eslintignore .eslint.config.js ./publish",
+    "copyFile": "cp -r LICENSE shell package.json README.md install.js uninstall.js vue-eslint.js .npmignore .gitignore .eslintignore .eslint.config.js ./publish",
     "release": "npm run resetDir && npm run copyFile && cd ./publish && npm run publish",
     "patch": "npm version patch && npm run release"
   },

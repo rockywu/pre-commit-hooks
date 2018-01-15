@@ -40,7 +40,7 @@ let baseConfig = {
 };
 let scriptsConfig = {
   'precommit-msg': 'echo \'Pre-commit checks...\' && exit 0',
-  'eslint': `/bin/bash ./node_modules/pre-commit-hooks/eslint.sh`
+  'eslint': `/bin/bash ./node_modules/pre-commit-hooks/shell/eslint.sh`
 };
 
 if (packageContent !== null && typeof packageContent == 'object') {
