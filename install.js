@@ -39,8 +39,11 @@ let baseConfig = {
   ]
 };
 let scriptsConfig = {
-  'precommit-msg': 'echo \'Pre-commit checks...\' && exit 0',
-  'eslint': `/bin/bash ./node_modules/pre-commit-hooks/shell/eslint.sh`
+  'precommit-msg': 'echo \'蘑菇租房前端“语法规范”自动提交扫描 ...\' && exit 0',
+  'eslint': `npm run precommit-msg && /bin/bash ./node_modules/pre-commit-hooks/shell/eslint.sh`,
+  'eslint-fix': `npm run precommit-msg && /bin/bash ./node_modules/pre-commit-hooks/shell/eslint.sh fix`,
+  'eslint-fixdryrun': `npm run precommit-msg && /bin/bash ./node_modules/pre-commit-hooks/shell/eslint.sh fix-dry-run`,
+  'eslint-desc': `npm run precommit-msg && /bin/bash ./node_modules/pre-commit-hooks/shell/eslint.sh desc`
 };
 
 if (packageContent !== null && typeof packageContent == 'object') {
