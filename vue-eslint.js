@@ -9,8 +9,6 @@ module.exports = {
     'ecmaVersion': 2017,
     'sourceType': 'module'
   },
-  env: {},
-  globals: {},
   extends: [
     /**
      * webstorm config: https://github.com/standard/standard/blob/master/docs/webstorm.md
