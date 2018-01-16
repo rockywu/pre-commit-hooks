@@ -77,7 +77,7 @@ try {
     let rootEslintrcConfig = require(rootEslintrcPath);
     let selfEslintrcConfig = require(selfEslintrcPath);
     let eslintrcContent = Object.assign({}, rootEslintrcConfig, selfEslintrcConfig);
-    fs.writeFileSync(rootEslintrcPath, "module.exports = "+ JSON.stringify(eslintrcContent, null, 2), 'utf-8');
+    fs.writeFileSync(rootEslintrcPath, "module.exports = "+ JSON.stringify(eslintrcContent, null, 2) + ";", 'utf-8');
   }
   console.log("Success:", "创建成功.eslintrc.js,并且合并历史配置")
 } catch(e) {
