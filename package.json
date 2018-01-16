@@ -1,6 +1,6 @@
 {
   "name": "pre-commit-hooks",
-  "version": "0.1.12",
+  "version": "0.1.13",
   "description": "use pre-commit ",
   "main": "index.js",
   "scripts": {
@@ -8,7 +8,7 @@
     "uninstall": "node uninstall.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "resetDir": "rm -rf publish && mkdir -p publish",
-    "copyFile": "cp -r LICENSE shell package.json README.md install.js uninstall.js vue-eslint.js .npmignore .gitignore .eslintignore .eslint.config.js ./publish",
+    "copyFile": "cp -r LICENSE shell package.json README.md install.js uninstall.js vue-eslint.js .npmignore .gitignore .eslintignore ./publish",
     "release": "npm run resetDir && npm run copyFile && cd ./publish && npm publish",
     "patch": "npm version patch && npm run release",
     "scan": "/bin/bash ./shell/scan.sh"
