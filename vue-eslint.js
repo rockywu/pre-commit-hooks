@@ -1,7 +1,7 @@
-//项目配置可以覆盖合并基本配置
-let projectConfig = require('./.eslint.config.js');
-
-let VueConfig = {
+/**
+ * vue项目基本eslint扫描规范
+ */
+module.exports = {
   root: true,
   parser: 'vue-eslint-parser',
   parserOptions: {
@@ -9,6 +9,8 @@ let VueConfig = {
     'ecmaVersion': 2017,
     'sourceType': 'module'
   },
+  env: {},
+  globals: {},
   extends: [
     /**
      * webstorm config: https://github.com/standard/standard/blob/master/docs/webstorm.md
@@ -431,19 +433,11 @@ let VueConfig = {
     'vue/html-closing-bracket-spacing' : 'warn',
 
     /**
-     * script标签内的缩进
+     * script标签内的缩进 暂时关闭(当代码中出现!开头的语句时，会导致shell异常退出,待后续优化)
      * --fix
      * enforce consistent indentation in <script>
      * https://github.com/vuejs/eslint-plugin-vue/blob/master/docs/rules/script-indent.md
      */
-    'vue/script-indent' : 0,
-    // 'vue/script-indent' : ['error', 2, {
-    //   'baseIndent': 1,
-    //   'switchCase': 0,
-    //   'ignores': []
-    // }]
-
+    'vue/script-indent' : 0
   }
 }
-
-module.exports = Object.assign({}, VueConfig, projectConfig);

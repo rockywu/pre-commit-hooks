@@ -7,8 +7,6 @@ const execSync = require('child_process').execSync;
 const exists = fs.existsSync || path.existsSync;
 let pg = require('./package.json');
 let rootPackagePath = root + '/package.json';
-let rootEslintConfigPath = root + '/.eslint.config.js';
-let selfEslintConfigPath = self + '/.eslint.config.js';
 let rootEslintrcPath = root + '/.eslintrc.js';
 let selfEslintrcPath = self + '/vue-eslint.js';
 let rootEslintignorePath = root + '/.eslintignore';
@@ -50,31 +48,39 @@ if (packageContent !== null && typeof packageContent == 'object') {
   Object.assign(packageContent.scripts, scriptsConfig);
   try {
     fs.writeFileSync(rootPackagePath, JSON.stringify(packageContent, null, 2), 'utf-8');
+    console.log("Success:", "编辑package.json成功");
   } catch (e) {
-    //do nothing
     console.log(e);
+    console.log("fail:", "编辑package.json失败");
   }
 }
 
-//copy .eslint.config.js -> .eslint.config.js
-try {
-  if (!exists(rootEslintConfigPath)) {
-    execSync(`cp ${selfEslintConfigPath} ${rootEslintConfigPath}`);
-  }
-} catch (e) {
-  console.log(e);
-}
 
 //创建.eslintignore
 try {
   execSync(`touch ${rootEslintignorePath}`);
+  console.log("Success:", "创建成功.eslintignore,并且合并历史配置")
 } catch (e) {
   console.log(e);
+  console.log("fail:", "创建失败.eslintignore");
 }
 
-//copy vue-eslint.js -> .eslintrc.js
+/**
+ * 创建eslint合并非统一配置
+ */
 try {
-  execSync(`cp -f ${selfEslintrcPath} ${rootEslintrcPath}`);
-} catch (e) {
+  //当开发分支下不存在.eslintrc.js时进行copy动作
+  if (!exists(rootEslintrcPath)) {
+    execSync(`cp ${selfEslintrcPath} ${rootEslintrcPath}`);
+  } else {
+    //存在.eslintrc.js时，使用标准配置进行合并
+    let rootEslintrcConfig = require(rootEslintrcPath);
+    let selfEslintrcConfig = require(selfEslintrcPath);
+    let eslintrcContent = Object.assign({}, rootEslintrcConfig, selfEslintrcConfig);
+    fs.writeFileSync(rootEslintrcPath, "module.exports = "+ JSON.stringify(eslintrcContent, null, 2), 'utf-8');
+  }
+  console.log("Success:", "创建成功.eslintrc.js,并且合并历史配置")
+} catch(e) {
   console.log(e);
+  console.log("fail:", "创建失败.eslintrc.js");
 }
