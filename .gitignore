@@ -60,8 +60,6 @@ typings/
 # intelliJ IDEA
 .idea
 
-package-lock.json
-
 scan/*
 scan-rs/*
 
