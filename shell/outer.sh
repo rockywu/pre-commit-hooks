@@ -73,6 +73,8 @@ else
   npm install --save-dev
 fi
 
+cd $basePath;
+
 
 
 
