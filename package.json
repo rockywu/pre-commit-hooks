@@ -1,6 +1,6 @@
 {
   "name": "pre-commit-hooks",
-  "version": "0.9.9",
+  "version": "0.9.10",
   "description": "use pre-commit ",
   "main": "index.js",
   "scripts": {
@@ -27,21 +27,23 @@
   },
   "homepage": "https://github.com/rockywu/pre-commit-hooks#readme",
   "dependencies": {
+    "pre-commit": "^1.2.2"
+  },
+  "devDependencies": {
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
     "babel-eslint": "^8.2.1",
     "eslint": "^4.15.0",
     "eslint-codeframe-formatter": "^1.0.2",
     "eslint-config-standard": "^11.0.0-beta.0",
+    "eslint-friendly-formatter": "^3.0.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-node": "^5.2.1",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-standard": "^3.0.1",
     "eslint-plugin-vue": "^4.2.0",
-    "eslint-friendly-formatter": "^3.0.0",
-    "pre-commit": "^1.2.2",
     "vue-eslint-parser": "^2.0.2"
   },
-  "devDependencies": {
-    "ejs": "^2.5.7",
-    "express": "^4.16.2"
-  }
+  "_from": "git+https://github.com/rockywu/pre-commit-hooks.git#test",
+  "_resolved": "https://github.com/rockywu/pre-commit-hooks.git#test"
 }
