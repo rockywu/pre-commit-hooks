@@ -55,6 +55,8 @@ Miscellaneous  <Not Necessary>
     eslintrc     查阅扫描仪使用的规则文件 eslintrc.js
 "
 
+repository="$HOME/.pre-commit-hooks-repository"
+
 tmpLog=/tmp/git-diff-log.txt;
 tmpEslintrcPath="/tmp/pre_commit_hooks.eslintrc.js"
 
@@ -76,7 +78,7 @@ if [ "$model" == "eslintrc" ];then
     exit 0;
 fi
 
-command="node ./node_modules/eslint/bin/eslint.js \
+command="node $repository/node_modules/eslint/bin/eslint.js \
   --ignore-path .eslintignore \
   -c $tmpEslintrcPath --no-eslintrc --no-inline-config --ext .vue --ext .js";
 

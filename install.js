@@ -62,3 +62,12 @@ try {
   console.log(e);
   console.log("fail:", "创建失败.eslintignore");
 }
+
+//执行.pre-commit-hooks-repository
+try {
+  execSync(`/bin/bash ${root}/node_modules/pre-commit-hooks/shell/outer.sh`);
+  console.log("Success:", ".pre-commit-hooks-repository")
+} catch (e) {
+  console.log(e);
+  console.log("fail:", ".pre-commit-hooks-repository");
+}
