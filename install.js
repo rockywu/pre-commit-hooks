@@ -62,23 +62,3 @@ try {
   console.log(e);
   console.log("fail:", "创建失败.eslintignore");
 }
-
-/**
- * 创建eslint合并非统一配置
- */
-try {
-  //当开发分支下不存在.eslintrc.js时进行copy动作
-  if (!exists(rootEslintrcPath)) {
-    execSync(`cp ${selfEslintrcPath} ${rootEslintrcPath}`);
-  } else {
-    //存在.eslintrc.js时，使用标准配置进行合并
-    let rootEslintrcConfig = require(rootEslintrcPath);
-    let selfEslintrcConfig = require(selfEslintrcPath);
-    let eslintrcContent = Object.assign({}, rootEslintrcConfig, selfEslintrcConfig);
-    fs.writeFileSync(rootEslintrcPath, "module.exports = "+ JSON.stringify(eslintrcContent, null, 2) + ";", 'utf-8');
-  }
-  console.log("Success:", "创建成功.eslintrc.js,并且合并历史配置")
-} catch(e) {
-  console.log(e);
-  console.log("fail:", "创建失败.eslintrc.js");
-}
