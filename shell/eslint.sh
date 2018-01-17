@@ -1,5 +1,11 @@
 #!/usr/bin/env bash
 #set -x
+function get_base_path(){
+    #bash get current file directory
+    local DIR;
+    DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+    echo "$DIR";
+}
 
 myecho() {
     echo -e "\033[""$1""m""$2""\033[0m";
@@ -35,20 +41,22 @@ Usage:
     npm run eslint [Model] [Output]
 
 Model   <Necessary>
-    scan         简易报告扫描模式，针对被修改的文件）选填，默认模式
-    fix          自动修复模式（针对被被修改的文件）
-    fix-dry-run  尝试自动修复模式，并生成修复报告（针对被被修改的文件，但不会对文件进行修改，仅支持eslint 4.x以上版本，）
-    desc         详细报告扫描模式(针对被被修改的文件，format=codeframe)
-    scan-overall 整体项目简易报告扫描模式
-    fix-overall  整体项目一键修复模式
+    scan          简易报告扫描模式，针对被修改的文件）选填，默认模式
+    fix           自动修复模式（针对被被修改的文件）
+    fix-dry-run   尝试自动修复模式，并生成修复报告（针对被被修改的文件，但不会对文件进行修改，仅支持eslint 4.x以上版本，）
+    desc          详细报告扫描模式(针对被被修改的文件，format=codeframe)
+    scan-overall  整体项目简易报告扫描模式
+    fix-overall   整体项目一键修复模式
 
 Output  <Not Necessary> 输出扫描或处理结果
 
 Miscellaneous  <Not Necessary>
-    help       帮助
+    help          帮助
+    eslintrc     查阅扫描仪使用的规则文件 eslintrc.js
 "
 
 tmpLog=/tmp/git-diff-log.txt;
+tmpEslintrcPath="/tmp/pre_commit_hooks.eslintrc.js"
 
 model="scan";
 if ! [ -z "$1" ]; then
@@ -60,10 +68,17 @@ if ! [ -z "$2" ]; then
     output="$2"
 fi
 
+root=`get_base_path`
+eval "node $root/create-cache-eslintrc.js $tmpEslintrcPath";
+
+if [ "$model" == "eslintrc" ];then
+    cat $tmpEslintrcPath;
+    exit 0;
+fi
 
 command="node ./node_modules/eslint/bin/eslint.js \
   --ignore-path .eslintignore \
-  -c .eslintrc.js --no-eslintrc --no-inline-config --ext .vue --ext .js";
+  -c $tmpEslintrcPath --no-eslintrc --no-inline-config --ext .vue --ext .js";
 
 #执行 代码更新
 if ! [ "$model" == "scan" ] \
@@ -118,10 +133,12 @@ else
 fi
 if [ $status -eq 2 ];then
     successcolor "无异常js、vue文件,可安心提交git push..    :)";
+    rm -f "$tmpEslintrcPath";
     exit 0;
 else
     greencolor "Run Command : \033[33m$command \033[32m";
     eval "$command";
+    rm -f "$tmpEslintrcPath";
     if ! [ $? -eq 0 ];then
         status=1
     fi
