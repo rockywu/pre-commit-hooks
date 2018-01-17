@@ -1,6 +1,6 @@
 {
   "name": "pre-commit-hooks",
-  "version": "0.9.9",
+  "version": "0.9.10",
   "description": "use pre-commit ",
   "main": "index.js",
   "scripts": {
