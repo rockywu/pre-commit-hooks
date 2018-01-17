@@ -60,6 +60,7 @@ rm -rf $repository;
 mkdir -p $repository
 
 node "$basePath/create-repository-json.js";
+greencolor "创建成功：$repository/package.json"
 
 cd $repository;
 
@@ -72,6 +73,7 @@ if [ $? -eq 0 ];then
 else
   npm install --save-dev
 fi
+greencolor "装依赖成功, $repository"
 
 
 
