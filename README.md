@@ -1,6 +1,5 @@
 # pre-commit-hooks
 
-
 ### Install
 `npm install --save-dev pre-commit-hooks`
 
@@ -23,6 +22,13 @@ Output  <Not Necessary> 输出扫描或处理结果
 Miscellaneous  <Not Necessary>
     help       帮助
 ```
+
+本地使用 `npm run eslint`
+
+### 问题、疑惑
+
+* 如果在使用eslint@v3版本的设备上无法使用--fix属性，这时建议手动安装eslint@v4版本
+
 
 ### 扫描扩展规则
 
@@ -513,13 +519,3 @@ module.exports = {
 };
 
 ```
-
-### 
-#### 定制vue项目本地客户端git commit拦截脚本
-
-用于检查客户端是否符合项目规范
-
-
-本地开发webpack添加eslint预检查机制
-
-### 

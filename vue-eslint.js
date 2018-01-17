@@ -31,7 +31,7 @@ module.exports = {
     /**
      * JS standard基本配置
      */
-    'semi': ['error', 'always'], //语句强制分号结尾
+    'semi': ['warn', 'always'], //语句强制分号结尾
     'semi-spacing': ['warn', {'before': false, 'after': true}],//分号结尾空格问题
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off', //是否禁用debugger
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off', //是否禁用console
