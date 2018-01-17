@@ -10,17 +10,18 @@ Usage:
     npm run eslint [Model] [Output]
 
 Model   <Necessary>
-    scan         简易报告扫描模式，针对被修改的文件）选填，默认模式
-    fix          自动修复模式（针对被被修改的文件）
-    fix-dry-run  尝试自动修复模式，并生成修复报告（针对被被修改的文件，但不会对文件进行修改，仅支持eslint 4.x以上版本，）
-    desc         详细报告扫描模式(针对被被修改的文件，format=codeframe)
-    scan-overall 整体项目简易报告扫描模式
-    fix-overall  整体项目一键修复模式
+    scan          简易报告扫描模式，针对被修改的文件）选填，默认模式
+    fix           自动修复模式（针对被被修改的文件）
+    fix-dry-run   尝试自动修复模式，并生成修复报告（针对被被修改的文件，但不会对文件进行修改，仅支持eslint 4.x以上版本，）
+    desc          详细报告扫描模式(针对被被修改的文件，format=codeframe)
+    scan-overall  整体项目简易报告扫描模式
+    fix-overall   整体项目一键修复模式
 
 Output  <Not Necessary> 输出扫描或处理结果
 
 Miscellaneous  <Not Necessary>
-    help       帮助
+    help          帮助
+    eslintrc     查阅扫描仪使用的规则文件 eslintrc.js
 ```
 
 本地使用 `npm run eslint`
