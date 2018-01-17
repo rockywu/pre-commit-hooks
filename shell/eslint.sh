@@ -135,16 +135,15 @@ else
 fi
 if [ $status -eq 2 ];then
     successcolor "无异常js、vue文件,可安心提交git push..    :)";
+    #清楚临时文件
     rm -f "$tmpEslintrcPath";
     exit 0;
 else
     greencolor "Run Command : \033[33m$command \033[32m";
     eval "$command";
-    rm -f "$tmpEslintrcPath";
     if ! [ $? -eq 0 ];then
         status=1
     fi
-
     if [ $status -eq 1 ];then
       errorcolor "存在部分error,请修复后再次git commit.   :(";
       yellowcolor "建议使用“npm run eslint fix”一键修复部分问题, 也可查阅操作手册“npm run eslint help”";
@@ -152,5 +151,6 @@ else
       successcolor "你的代码很标准，可安心提交git push.    :)";
     fi
     #清楚临时文件
+    rm -f "$tmpEslintrcPath";
     exit $status;
 fi
