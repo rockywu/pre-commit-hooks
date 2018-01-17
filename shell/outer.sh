@@ -59,7 +59,7 @@ rm -rf $repository;
 
 mkdir -p $repository
 
-cp "$basePath/../package.json" "$repository/package.json";
+node "$basePath/create-repository-json.js";
 
 cd $repository;
 
@@ -73,7 +73,6 @@ else
   npm install --save-dev
 fi
 
-cd $basePath;
 
 
 
