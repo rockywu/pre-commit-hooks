@@ -16,12 +16,11 @@ Model   <Necessary>
     desc          详细报告扫描模式(针对被被修改的文件，format=codeframe)
     scan-overall  整体项目简易报告扫描模式
     fix-overall   整体项目一键修复模式
+    help          帮助
+    eslintrc      查阅扫描仪使用的规则文件 eslintrc.js
+    update        基于远程服务器eslintrc来更新本地eslintrc规则
 
 Output  <Not Necessary> 输出扫描或处理结果
-
-Miscellaneous  <Not Necessary>
-    help          帮助
-    eslintrc     查阅扫描仪使用的规则文件 eslintrc.js
 ```
 
 本地使用 `npm run eslint`
