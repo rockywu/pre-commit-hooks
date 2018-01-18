@@ -8,7 +8,7 @@ const exists = fs.existsSync || path.existsSync;
 let pg = require('./package.json');
 let rootPackagePath = root + '/package.json';
 let rootEslintrcPath = root + '/.eslintrc.js';
-let selfEslintrcPath = self + '/vue-eslint.js';
+let selfEslintrcPath = self + '/vue-eslintrc.js';
 let rootEslintignorePath = root + '/.eslintignore';
 
 console.log("install pre-commit");
