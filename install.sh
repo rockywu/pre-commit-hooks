@@ -82,6 +82,8 @@ packageInstall="$npmCommand install --save-dev $packages"
 echo "$packageInstall"
 eval "$packageInstall"
 
+cd "$projectPath"
+
 
 
 

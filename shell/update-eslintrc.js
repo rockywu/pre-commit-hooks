@@ -19,7 +19,7 @@ try {
   if (!downloadUrl) {
     process.exit(0);
   }
-  console.log("正在下载远端eslintrc文件:" + downloadUrl)
+  console.log('正在下载远端eslintrc文件:' + downloadUrl);
 } catch (e) {
   process.exit(0);
 }
@@ -33,7 +33,7 @@ function httpRequest (fileUrl, cb) {
     port: isHttps ? 443 : 80,
     path: urlParse.pathname
   };
-  agreement.get(options, function (res) {
+  var req = agreement.get(options, function (res) {
     let result = '';
     res.setEncoding('utf8');
     res.on('data', function (data) {
@@ -43,9 +43,22 @@ function httpRequest (fileUrl, cb) {
       cb(null, result);
     });
   });
+  req.on('error', function (e) {
+    cb(e);
+  });
+
+  setTimeout(function () {
+    req.abort();
+  }, 10000);
 }
+
 //下载新.eslintrc.js
 httpRequest(downloadUrl, function (err, content) {
+  if (err) {
+    console.log(err);
+    console.log('更新eslintrc失败');
+    return;
+  }
   if (!content) return;
   try {
     var Module = module.constructor;
@@ -56,8 +69,7 @@ httpRequest(downloadUrl, function (err, content) {
       console.log('更新eslintrc成功');
     });
   } catch (e) {
-    console.log(e)
+    console.log(e);
     console.log('更新eslintrc失败');
   }
 });
-
