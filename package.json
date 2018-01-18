@@ -11,7 +11,7 @@
     "patch": "npm version patch && npm run release",
     "scan": "/bin/bash ./shell/scan.sh"
   },
-  "eslintrcUrl": "https://raw.githubusercontent.com/rockywu/pre-commit-hooks/master/vue-eslint.js",
+  "eslintrcUrl": "http://git.mogo.com/Frontend/hooks/raw/master/.eslintrc.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rockywu/pre-commit-hooks.git"
