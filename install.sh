@@ -59,6 +59,7 @@ yellowcolor "pre-commit-hooks 更新eslintrc.js"
 eval "$nodeCommand $basePath/shell/update-eslintrc.js $basePath/package.json $basePath/vue-eslintrc.js"
 
 #创建eslint应用
+mkdir -p "$basePath/eslint-bin"
 cd "$basePath/eslint-bin"
 packages=" \
     babel-eslint \
