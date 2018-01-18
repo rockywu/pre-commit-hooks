@@ -4,14 +4,14 @@
   "description": "use pre-commit ",
   "main": "index.js",
   "scripts": {
-    "install": "node install.js",
-    "uninstall": "node uninstall.js",
+    "install": "/bin/bash install.sh",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "copyfile": "rm -rf publish && mkdir -p publish && cp -r LICENSE shell package.json README.md install.js uninstall.js vue-eslint.js .npmignore .gitignore .eslintignore ./publish",
+    "copyfile": "rm -rf publish && mkdir -p publish && cp -r LICENSE shell package.json README.md install.sh vue-eslintrc.js .npmignore .gitignore .eslintignore ./publish",
     "release": "npm run copyfile && cd ./publish && npm publish",
     "patch": "npm version patch && npm run release",
     "scan": "/bin/bash ./shell/scan.sh"
   },
+  "eslintrcUrl": "http://git.mogo.com/Frontend/hooks/raw/master/.eslintrc.js",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/rockywu/pre-commit-hooks.git"
@@ -31,18 +31,7 @@
   },
   "devDependencies": {
     "ejs": "^2.5.7",
-    "express": "^4.16.2",
-    "babel-eslint": "^8.2.1",
-    "eslint": "^4.15.0",
-    "eslint-codeframe-formatter": "^1.0.2",
-    "eslint-config-standard": "^11.0.0-beta.0",
-    "eslint-friendly-formatter": "^3.0.0",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-node": "^5.2.1",
-    "eslint-plugin-promise": "^3.6.0",
-    "eslint-plugin-standard": "^3.0.1",
-    "eslint-plugin-vue": "^4.2.0",
-    "vue-eslint-parser": "^2.0.2"
+    "express": "^4.16.2"
   },
   "_from": "git+https://github.com/rockywu/pre-commit-hooks.git#test",
   "_resolved": "https://github.com/rockywu/pre-commit-hooks.git#test"

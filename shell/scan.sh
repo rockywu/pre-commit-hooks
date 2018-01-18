@@ -64,7 +64,7 @@ function product() {
         fi
         command="node ./node_modules/eslint/bin/eslint.js --no-color \
             --ignore-path .eslintignore \
-            -c vue-eslint.js --no-eslintrc --ext .js --ext .vue \
+            -c vue-eslintrc.js --no-eslintrc --ext .js --ext .vue \
             -o $out $files"
         echo $command;
         eval $command;
