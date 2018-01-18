@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-set -x
+#set -x
 function get_base_path(){
     #bash get current file directory
     local DIR;
@@ -132,7 +132,7 @@ else
     elif [ "$model" == "fix-dry-run" ]; then
       command="$command --fix-dry-run $files";
     else
-      command="$command $files"
+      command="$command --quiet $files"
     fi
 fi
 if [ $status -eq 2 ];then
