@@ -100,7 +100,7 @@ module.exports = {
       'eof-in-tag': true,
       'incorrectly-closed-comment': true,
       'incorrectly-opened-comment': true,
-      'invalid-first-character-of-tag-name': true,
+      'invalid-first-character-of-tag-name': false,
       'missing-attribute-value': true,
       'missing-end-tag-name': true,
       'missing-semicolon-after-character-reference': true,

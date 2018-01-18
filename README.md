@@ -44,6 +44,9 @@ Miscellaneous  <Not Necessary>
 /**
  * vue项目基本eslint扫描规范
  */
+/**
+ * vue项目基本eslint扫描规范
+ */
 module.exports = {
   root: true,
   parser: 'vue-eslint-parser',
@@ -74,7 +77,7 @@ module.exports = {
     /**
      * JS standard基本配置
      */
-    'semi': ['error', 'always'], //语句强制分号结尾
+    'semi': ['warn', 'always'], //语句强制分号结尾
     'semi-spacing': ['warn', {'before': false, 'after': true}],//分号结尾空格问题
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off', //是否禁用debugger
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off', //是否禁用console
@@ -143,7 +146,7 @@ module.exports = {
       'eof-in-tag': true,
       'incorrectly-closed-comment': true,
       'incorrectly-opened-comment': true,
-      'invalid-first-character-of-tag-name': true,
+      'invalid-first-character-of-tag-name': false,
       'missing-attribute-value': true,
       'missing-end-tag-name': true,
       'missing-semicolon-after-character-reference': true,
