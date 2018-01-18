@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-#set -x
+set -x
 function get_base_path(){
     #bash get current file directory
     local DIR;
@@ -55,32 +55,35 @@ Miscellaneous  <Not Necessary>
     eslintrc     查阅扫描仪使用的规则文件 eslintrc.js
 "
 
-repository="$HOME/.pre-commit-hooks-repository"
+basePath=`get_base_path`
+projectPath="$basePath/../../.."
+nodeCommand=$(command -v node);
+eslintBin="$basePath/../eslint-bin/node_modules/eslint/bin/eslint.js"
+cacheEslintrc="$basePath/../eslint-bin/eslintrc-cache.js"
+authEslintrc="$basePath/../vue-eslintrc.js"
+filesLog="$basePath/../eslint-bin/files.log"
 
-tmpLog=/tmp/git-diff-log.txt;
-tmpEslintrcPath="/tmp/pre_commit_hooks.eslintrc.js"
+yellowcolor "生成临时扫描eslintrc"
+eval "$nodeCommand $basePath/merge-eslintrc.js $projectPath/.eslintrc.js $authEslintrc $cacheEslintrc"
 
+#执行模式
 model="scan";
 if ! [ -z "$1" ]; then
   model="$1"
 fi
-
 output="no-output";
 if ! [ -z "$2" ]; then
     output="$2"
 fi
 
-root=`get_base_path`
-eval "node $root/create-cache-eslintrc.js $tmpEslintrcPath";
-
 if [ "$model" == "eslintrc" ];then
-    cat $tmpEslintrcPath;
+    cat $cacheEslintrc;
     exit 0;
 fi
 
-command="node $repository/node_modules/eslint/bin/eslint.js \
-  --ignore-path .eslintignore \
-  -c $tmpEslintrcPath --no-eslintrc --no-inline-config --ext .vue --ext .js";
+command="$nodeCommand $eslintBin \
+  --ignore-path $projectPath/.eslintignore \
+  -c $cacheEslintrc --no-eslintrc --no-inline-config --ext .vue --ext .js";
 
 #执行 代码更新
 if ! [ "$model" == "scan" ] \
@@ -111,7 +114,7 @@ if [ "$model" == "scan-overall" ] || [ "$model" == "fix-overall" ]; then
     command="$command $files";
 else
     #被改动扫描模式
-    git diff --name-only HEAD --diff-filter=AMXTCR > $tmpLog;
+    git diff --name-only HEAD --diff-filter=AMXTCR > $filesLog;
     while read file;do
         #获取文件扩展名
         file_ext=${file##*.}
@@ -119,8 +122,7 @@ else
         if [ $file_ext == "js" ] || [ $file_ext == "vue" ]; then
             files="$files $file";
         fi;
-    done < $tmpLog;
-    rm -f $tmpLog;
+    done < $filesLog;
     if [ -z "$files" ]; then
         status=2
     elif [ "$model" == "fix" ]; then
@@ -136,7 +138,6 @@ fi
 if [ $status -eq 2 ];then
     successcolor "无异常js、vue文件,可安心提交git push..    :)";
     #清楚临时文件
-    rm -f "$tmpEslintrcPath";
     exit 0;
 else
     greencolor "Run Command : \033[33m$command \033[32m";
@@ -150,7 +151,6 @@ else
     else
       successcolor "你的代码很标准，可安心提交git push.    :)";
     fi
-    #清楚临时文件
-    rm -f "$tmpEslintrcPath";
     exit $status;
 fi
+

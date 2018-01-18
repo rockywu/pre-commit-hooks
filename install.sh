@@ -43,13 +43,43 @@ basePath=`get_base_path`
 #project path
 projectPath="$basePath/../.."
 
+#创建项目.eslintignore
+if ! [ -f "$projectPath/.eslintignore" ];then
+    yellowcolor "pre-commit-hooks 创建项目.eslintignore"
+    touch "$projectPath/.eslintignore"
+fi
+
 #合并package.json
-rs=$(eval "$nodeCommand $basePath/shell/merge-package.js $projectPath/package.json");
-yellowcolor $rs;
+yellowcolor "pre-commit-hooks 合并package.json"
+eval "$nodeCommand $basePath/shell/merge-package.js $projectPath/package.json"
+
 
 #更新eslintrc.js
+yellowcolor "pre-commit-hooks 更新eslintrc.js"
 eval "$nodeCommand $basePath/shell/update-eslintrc.js $basePath/package.json $basePath/vue-eslintrc.js"
 
+#创建eslint应用
+cd "$basePath/eslint-bin"
+packages=" \
+    babel-eslint \
+    eslint \
+    eslint-codeframe-formatter \
+    eslint-config-standard \
+    eslint-friendly-formatter \
+    eslint-plugin-import \
+    eslint-plugin-node \
+    eslint-plugin-promise \
+    eslint-plugin-standard \
+    eslint-plugin-vue \
+    vue-eslint-parser";
+
+npmCommand=$(command -v cnpm);
+if [ -z "$npmCommand" ];then
+    npmCommand=$(command -v npm);
+fi
+packageInstall="$npmCommand install --save-dev $packages"
+echo "$packageInstall"
+eval "$packageInstall"
 
 
 
