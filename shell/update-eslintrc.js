@@ -28,6 +28,7 @@ function httpRequest (fileUrl, cb) {
   var urlParse = url.parse(fileUrl);
   var isHttps = urlParse.protocol.replace(':', '').toLowerCase() == 'https';
   var agreement = isHttps ? https : http;
+  var timeoutHandle = null;
   var options = {
     host: urlParse.host,
     port: isHttps ? 443 : 80,
@@ -37,6 +38,10 @@ function httpRequest (fileUrl, cb) {
     let result = '';
     res.setEncoding('utf8');
     res.on('data', function (data) {
+      if(timeoutHandle) {
+        clearTimeout(timeoutHandle);
+        timeoutHandle = null;
+      }
       result += data;
     });
     res.on('end', function () {
@@ -47,16 +52,16 @@ function httpRequest (fileUrl, cb) {
     cb(e);
   });
 
-  setTimeout(function () {
+  timeoutHandle = setTimeout(function () {
     req.abort();
-  }, 10000);
+  }, 5000);
 }
 
 //下载新.eslintrc.js
 httpRequest(downloadUrl, function (err, content) {
   if (err) {
     console.log(err);
-    console.log('更新eslintrc失败');
+    console.log('无法成功下载，更新eslintrc失败');
     return;
   }
   if (!content) return;
