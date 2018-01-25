@@ -37,7 +37,6 @@ successcolor() {
 }
 
 #node command
-nodeCommand=$(command -v node);
 #shell current path
 basePath=`get_base_path`
 #project path
@@ -51,16 +50,22 @@ fi
 
 #合并package.json
 yellowcolor "pre-commit-hooks 合并package.json"
-eval "$nodeCommand $basePath/shell/merge-package.js $projectPath/package.json"
+eval "node $basePath/shell/merge-package.js $projectPath/package.json"
 
 
 #更新eslintrc.js
 yellowcolor "pre-commit-hooks 更新eslintrc.js"
-eval "$nodeCommand $basePath/shell/update-eslintrc.js $basePath/package.json $basePath/vue-eslintrc.js"
+eval "node $basePath/shell/update-eslintrc.js $basePath/package.json $basePath/vue-eslintrc.js"
 
 #创建eslint应用
 mkdir -p "$basePath/eslint-bin"
 cd "$basePath/eslint-bin"
+
+packageJson="{ \
+  \"devDependencies\": {}, \
+  \"dependencies\": {} \
+}";
+echo "$packageJson" > "$basePath/eslint-bin/package.json"
 packages=" \
     babel-eslint \
     eslint \
@@ -76,7 +81,9 @@ packages=" \
 
 npmCommand=$(command -v cnpm);
 if [ -z "$npmCommand" ];then
-    npmCommand=$(command -v npm);
+    npmCommand="npm"
+else
+    npmCommand="cnpm"
 fi
 packageInstall="$npmCommand install --save-dev $packages"
 echo "$packageInstall"

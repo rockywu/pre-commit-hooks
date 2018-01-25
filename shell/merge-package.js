@@ -32,7 +32,7 @@ var hookConfig = {
 };
 var scriptsConfig = {
   'precommit-msg': 'echo "\033["32"m""<<< 蘑菇租房前端“语法规范”自动提交扫描 ... >>>""\033[0m" && exit 0 ',
-  'eslint.sh': '/bin/bash ./node_modules/pre-commit-hooks/shell/eslint.sh',
+  'eslint.sh': 'bash node_modules/pre-commit-hooks/shell/eslint.sh',
   'eslint': 'npm run precommit-msg && npm run eslint.sh',
   'eslint-help': 'npm run eslint.sh help',
 };

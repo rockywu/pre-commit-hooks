@@ -57,14 +57,13 @@ Output  <Not Necessary> 输出扫描或处理结果
 
 basePath=`get_base_path`
 projectPath="$basePath/../../.."
-nodeCommand=$(command -v node);
 eslintBin="$basePath/../eslint-bin/node_modules/eslint/bin/eslint.js"
 cacheEslintrc="$basePath/../eslint-bin/eslintrc-cache.js"
 authEslintrc="$basePath/../vue-eslintrc.js"
 filesLog="$basePath/../eslint-bin/files.log"
 
 yellowcolor "生成临时扫描eslintrc"
-eval "$nodeCommand $basePath/merge-eslintrc.js $projectPath/.eslintrc.js $authEslintrc $cacheEslintrc"
+eval "node $basePath/merge-eslintrc.js $projectPath/.eslintrc.js $authEslintrc $cacheEslintrc"
 
 #执行模式
 model="scan";
@@ -84,12 +83,12 @@ fi
 #更新eslintrc.js
 if [ "$model" == "update" ];then
     yellowcolor "pre-commit-hooks 更新eslintrc.js"
-    eval "$nodeCommand $basePath/update-eslintrc.js $basePath/../package.json $basePath/../vue-eslintrc.js"
+    eval "node $basePath/update-eslintrc.js $basePath/../package.json $basePath/../vue-eslintrc.js"
 fi
 
-command="$nodeCommand $eslintBin \
-  --ignore-path $projectPath/.eslintignore \
-  -c $cacheEslintrc --no-eslintrc --no-inline-config --ext .vue --ext .js";
+command="node $eslintBin \
+  --ignore-path "$projectPath/.eslintignore" \
+  -c "$cacheEslintrc" --no-eslintrc --no-inline-config --ext .vue --ext .js";
 
 #执行 代码更新
 if ! [ "$model" == "scan" ] \

@@ -4,7 +4,7 @@
   "description": "use pre-commit ",
   "main": "index.js",
   "scripts": {
-    "install": "/bin/bash install.sh",
+    "install": "bash install.sh",
     "test": "echo \"Error: no test specified\" && exit 1",
     "copyfile": "rm -rf publish && mkdir -p publish && cp -r LICENSE shell package.json README.md install.sh vue-eslintrc.js .npmignore .gitignore .eslintignore ./publish",
     "release": "npm run copyfile && cd ./publish && npm publish",
