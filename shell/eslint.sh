@@ -41,10 +41,12 @@ Usage:
     npm run eslint [Model] [Output]
 
 Model   <Necessary>
-    scan          简易报告扫描模式，针对被修改的文件）选填，默认模式
+    scan          简易报告扫描模式，针对被修改的文件, 隐藏warning）选填，默认模式
+    scan-details  简易报告扫描模式，针对被修改的文件, 展示warning）选填，默认模式
     fix           自动修复模式（针对被被修改的文件）
     fix-dry-run   尝试自动修复模式，并生成修复报告（针对被被修改的文件，但不会对文件进行修改，仅支持eslint 4.x以上版本，）
-    desc          详细报告扫描模式(针对被被修改的文件，format=codeframe)
+    desc          详细报告扫描模式(针对被被修改的文件，format=codeframe, 隐藏warning)
+    desc-details  详细报告扫描模式(针对被被修改的文件，format=codeframe,展示warning)
     scan-overall  整体项目简易报告扫描模式
     fix-overall   整体项目一键修复模式
     help          帮助
@@ -92,9 +94,11 @@ command="node $eslintBin \
 
 #执行 代码更新
 if ! [ "$model" == "scan" ] \
+    && ! [ "$model" == "scan-details" ] \
     && ! [ "$model" == "fix" ] \
     && ! [ "$model" == "fix-dry-run" ] \
     && ! [ "$model" == "desc" ] \
+    && ! [ "$model" == "desc-details" ] \
     && ! [ "$model" == "scan-overall" ] \
     && ! [ "$model" == "fix-overall" ] ;then
     yellowcolor "pre-commit-hooks 帮助手册"
@@ -133,9 +137,13 @@ else
     elif [ "$model" == "fix" ]; then
       command="$command --fix $files";
     elif [ "$model" == "desc" ]; then
+      command="$command --quiet --format=codeframe $files"
+    elif [ "$model" == "desc-details" ]; then
       command="$command --format=codeframe $files"
     elif [ "$model" == "fix-dry-run" ]; then
       command="$command --fix-dry-run $files";
+    elif [ "$model" == "scan-details" ]; then
+      command="$command $files"
     else
       command="$command --quiet $files"
     fi
