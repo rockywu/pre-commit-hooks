@@ -51,12 +51,12 @@ fi
 
 #合并package.json
 yellowcolor "pre-commit-hooks 合并package.json"
-eval "$nodeCommand $basePath/shell/merge-package.js $projectPath/package.json"
+node "$basePath/shell/merge-package.js" "$projectPath/package.json"
 
 
 #更新eslintrc.js
 yellowcolor "pre-commit-hooks 更新eslintrc.js"
-eval "$nodeCommand $basePath/shell/update-eslintrc.js $basePath/package.json $basePath/vue-eslintrc.js"
+node "$basePath/shell/update-eslintrc.js" "$basePath/package.json" "$basePath/vue-eslintrc.js"
 
 #创建eslint应用
 mkdir -p "$basePath/eslint-bin"
@@ -76,11 +76,11 @@ packages=" \
 
 npmCommand=$(command -v cnpm);
 if [ -z "$npmCommand" ];then
-    npmCommand=$(command -v npm);
+    npm install --save-dev "$packages"
+else
+    cnpm install --save-dev "$packages"
 fi
-packageInstall="$npmCommand install --save-dev $packages"
-echo "$packageInstall"
-eval "$packageInstall"
+yellowcolor "npm install --save-dev $packages"
 
 cd "$projectPath"
 
