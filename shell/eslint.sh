@@ -57,6 +57,8 @@ Output  <Not Necessary> 输出扫描或处理结果
 
 "
 
+greencolor "蘑菇租房前端“语法规范”自动提交扫描"
+
 basePath=`get_base_path`
 projectPath="$basePath/../../.."
 eslintBin="$basePath/../eslint-bin/node_modules/eslint/bin/eslint.js"
