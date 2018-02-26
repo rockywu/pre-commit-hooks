@@ -17,11 +17,15 @@ let links = [
   'AM',
   'Minisite',
   'MobBS',
+  'mogoroom-renterembed-h5',
   'Partner-fe',
   'PartnerH5',
+  'school-pc',
+  'school-wechat',
   'TouchWeb',
-  'mogoroom-renterembed-h5',
-  'tp-rebuild'
+  'tp-rebuild',
+  'vic-gov-pc',
+  'vic-renter-embed',
 ];
 
 //首页
@@ -34,6 +38,7 @@ app.get('/report/:name', function (req, res) {
   res.locals.name = req.params.name;
   res.render("report.ejs");
 });
+console.log("http://localhost:8909")
 
 app.listen(8909)
 

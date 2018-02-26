@@ -19,12 +19,28 @@
             margin-bottom: 20px;
             border-top: 1px solid #eaeae2;
         }
-
+        .install {
+            color: brown;
+            font-size: 16px;
+        }
+        .install strong {
+            color: #666;
+        }
+        .container h3 {
+            width: 600px;
+            margin: 0 auto;
+            text-align:center;
+        }
+        .proname {
+            color: red;
+            font-size: 30px;
+            padding-right:10px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h2>扫描报告：</h2>
+        <h3><span class="proname"><%= name%></span><br />扫描报告：<span class="install">pre-commit-hooks安装情况：<strong></strong></span></h3>
         <pre id="message" class="msg"></pre>
         <div id="mountNode"></div>
     </div>
@@ -60,14 +76,19 @@
   axios.get("/api/" + projectName + ".json").
   then(function(res) {
     var data = formatData(res.data);
-    drawChat("mountNode", data.all, "全部");
-    drawChat("mountNode", data.warning, "Warning");
+//    drawChat("mountNode", data.all, "全部");
+//    drawChat("mountNode", data.warning, "Warning");
     drawChat("mountNode", data.error, "Error");
   });
 
   axios.get("/api/" + projectName + ".txt", {}).
   then(function(res){
     document.querySelector("#message").innerHTML = res.data;
+  });
+
+  axios.get("/api/" + projectName + ".cnt.json", {}).
+  then(function(res){
+    document.querySelector(".install strong").innerHTML = res.data.cnt > 0 ? "已安装" : "未安装";
   });
   function drawChat(id ,data, type) {
     const { DataView } = DataSet;
@@ -81,7 +102,7 @@
       const chart = new G2.Chart({
         container: 'mountNode',
         forceFit: true,
-        height: window.innerHeight,
+        height: window.innerHeight * 0.7,
       });
       chart.source(dv, {
         percent: {

@@ -111,16 +111,20 @@ ls "${scanPath}" | awk '{print $1}' | while read dir;do
         touch "${path}/.eslintignore"
     fi
     node "$shellPath/merge-eslintrc.js" "$path" "$cacheVueEslintrcPath" "$rootPath/eslint-bin/.cache.eslintrc.js"
-    command="node "$rootPath/eslint-bin/node_modules/eslint/bin/eslint.js" --no-color --ignore-path "$path/.eslintignore" -c "$rootPath/eslint-bin/.cache.eslintrc.js" --no-eslintrc --ext .js --ext .vue -o "$outPath" "$path""
+    command="node "$rootPath/eslint-bin/node_modules/eslint/bin/eslint.js" --no-color --ignore-path "$path/.eslintignore" -c "$rootPath/eslint-bin/.cache.eslintrc.js" --no-eslintrc --quiet --ext .js --ext .vue -o "$outPath" "$path""
     usagecolor "$command"
     `$command`
     greencolor "完成eslintrc扫描：${dir}"
 
-    greencolor "输出eslintrc扫描JSON明细结果：${dir}.json"
+    greencolor "输出eslintrc扫描JSON明细结果：${outPath}.json"
     outputJson "$outPath" "$outPath.json"
 
     greencolor "输出eslintrc扫描总数结果：${dir}.txt"
     getProblems "$outPath" "$outPath.txt"
+
+    hasHooks=$(cat "$path/package.json" | grep "pre-commit-hooks" | wc -l | awk '{print $1}')
+
+    echo "{\"cnt\":"$hasHooks"}" > "$outPath.cnt.json"
 
     successcolor "仓库扫描完成：${dir}"
 done;
