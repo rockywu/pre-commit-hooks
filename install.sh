@@ -67,17 +67,17 @@ packageJson="{ \
 }";
 echo "$packageJson" > "$basePath/eslint-bin/package.json"
 packages=" \
-    babel-eslint \
-    eslint \
-    eslint-codeframe-formatter \
-    eslint-config-standard \
-    eslint-friendly-formatter \
-    eslint-plugin-import \
-    eslint-plugin-node \
-    eslint-plugin-promise \
-    eslint-plugin-standard \
-    eslint-plugin-vue \
-    vue-eslint-parser";
+    babel-eslint@~8.2.1 \
+    eslint@~4.16.0 \
+    eslint-codeframe-formatter@~1.0.2 \
+    eslint-config-standard@~11.0.0 \
+    eslint-friendly-formatter@~3.0.0 \
+    eslint-plugin-import@~2.8.0 \
+    eslint-plugin-node@~5.2.1 \
+    eslint-plugin-promise@~3.6.0 \
+    eslint-plugin-standard@~3.0.1 \
+    eslint-plugin-vue@~4.2.2 \
+    vue-eslint-parser@~2.0.2";
 
 npmCommand=$(command -v cnpm);
 if [ -z "$npmCommand" ];then
