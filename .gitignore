@@ -59,6 +59,7 @@ typings/
 
 # intelliJ IDEA
 .idea
+.DS_Store
 
 scan/*
 scan-rs/*
