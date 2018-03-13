@@ -106,25 +106,29 @@ ls "${scanPath}" | awk '{print $1}' | while read dir;do
     path="$scanPath/$dir"
     yellowcolor "正在扫描现有仓库：${dir}, 路径：${path}"
     outPath="$scanRsPath/$dir"
+    baseLog="$outPath.log"
+    dateTime=$(date +%Y%m%d)
+    mkdir -p "$outPath"
+    filePath="$outPath/$dateTime"
     if ! [ -f "$path/.eslintignore" ];then
         greencolor "项目自带过滤文件不存在:${dir}, 自动创建:${path}/.eslintignore"
         touch "${path}/.eslintignore"
     fi
     node "$shellPath/merge-eslintrc.js" "$path" "$cacheVueEslintrcPath" "$rootPath/eslint-bin/.cache.eslintrc.js"
-    command="node "$rootPath/eslint-bin/node_modules/eslint/bin/eslint.js" --no-color --ignore-path "$path/.eslintignore" -c "$rootPath/eslint-bin/.cache.eslintrc.js" --no-eslintrc --quiet --ext .js --ext .vue -o "$outPath" "$path""
+    command="node "$rootPath/eslint-bin/node_modules/eslint/bin/eslint.js" --no-color --ignore-path "$path/.eslintignore" -c "$rootPath/eslint-bin/.cache.eslintrc.js" --no-eslintrc --quiet --ext .js --ext .vue -o "$baseLog" "$path""
     usagecolor "$command"
     `$command`
     greencolor "完成eslintrc扫描：${dir}"
 
-    greencolor "输出eslintrc扫描JSON明细结果：${outPath}.json"
-    outputJson "$outPath" "$outPath.json"
+    greencolor "输出eslintrc扫描JSON明细结果：${filePath}.json"
+    outputJson "$baseLog" "$filePath.json"
 
     greencolor "输出eslintrc扫描总数结果：${dir}.txt"
-    getProblems "$outPath" "$outPath.txt"
+    getProblems "$baseLog" "$filePath.txt"
 
     hasHooks=$(cat "$path/package.json" | grep "pre-commit-hooks" | wc -l | awk '{print $1}')
 
-    echo "{\"cnt\":"$hasHooks"}" > "$outPath.cnt.json"
+    echo "{\"cnt\":"$hasHooks"}" > "$filePath.cnt.json"
 
     successcolor "仓库扫描完成：${dir}"
 done;
