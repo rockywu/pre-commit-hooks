@@ -33,16 +33,24 @@ app.get('/', function (req, res) {
   res.locals.links = links;
   res.render("index.ejs");
 });
-
+// 扫描趋势变化
 app.get('/report/:name', function (req, res) {
   res.locals.name = req.params.name;
   res.render("reportDate.ejs");
 });
+// 扫描详情
 app.get('/report/:name/:date', function (req, res) {
   res.locals.name = req.params.name;
   res.locals.date = req.params.date;
   res.render("reportInfo.ejs");
 });
+
+// 邮件内容
+app.get('/mail', function (req, res) {
+  res.locals.links = links;
+  res.render("mail.ejs");
+});
+
 console.log("http://localhost:8909")
 
 app.listen(8909)
