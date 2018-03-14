@@ -11,7 +11,16 @@
 <body>
 <h1>业务仓库扫描报告</h1>
 <div class="link">
-  邮件报告内容
+  <% for(var i = 0; i < data.length; i++) {%>
+  <p>
+    <span><%= data[i]['name']%></span>
+    <span>（今天error：</span>
+    <span><%= data[i]['today']%></span>
+    <span>------</span>
+    <span>昨天error：</span>
+    <span><%= data[i]['yesterday']%>）</span>
+  </p>
+  <% } %>
 </div>
 </body>
 </html>
