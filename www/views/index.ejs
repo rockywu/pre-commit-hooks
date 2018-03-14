@@ -12,7 +12,13 @@
     <h1>业务仓库</h1>
     <div class="link">
         <% for(var i = 0; i < links.length; i++) {%>
-        <p><a href="/report/<%= links[i]%>"><%= links[i]%></a></p>
+        <p>
+            <a href="/report/<%= links[i]%>"><%= links[i]%></a>
+            <span>（最新日志 </span>
+            <a style="font-size: 12px" href="/api/<%= links[i]%>.log">查看</a>
+            <a style="font-size: 12px" href="/api/<%= links[i]%>.log" download>下载</a>
+            <span>）</span>
+        </p>
         <% } %>
     </div>
 </body>
