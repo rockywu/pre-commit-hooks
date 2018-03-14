@@ -91,7 +91,11 @@ gitUrls[10]="git@git.mogo.com:Frontend/vic-gov-pc.git"
 gitUrls[11]="git@git.mogo.com:Frontend/vic-renter-embed.git"
 cd "$scanPath"
 for i in ${gitUrls[@]};do
-	git clone $i;
+	name=${i##*/}
+	dirName=${name%%.git}
+	if ! [ -d  "$scanPath/$dirName" ];then
+	    git clone $i;
+    fi
 done;
 
 yellowcolor "更新所有需要扫描的仓库代码"
