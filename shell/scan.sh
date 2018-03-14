@@ -76,6 +76,28 @@ eval "$packageInstall"
 
 cd "$rootPath"
 
+yellowcolor "clone所有需要扫描的仓库代码"
+gitUrls[0]="git@git.mogo.com:tpfe/AM.git"
+gitUrls[1]="git@git.mogo.com:Frontend/Minisite.git"
+gitUrls[2]="git@git.mogo.com:Frontend/MobBS.git"
+gitUrls[3]="git@git.mogo.com:Frontend/mogoroom-renterembed-h5.git"
+gitUrls[4]="git@git.mogo.com:Frontend/Partner-fe.git"
+gitUrls[5]="git@git.mogo.com:Frontend/PartnerH5.git"
+gitUrls[6]="git@git.mogo.com:Frontend/school-pc.git"
+gitUrls[7]="git@git.mogo.com:Frontend/school-wechat.git"
+gitUrls[8]="git@git.mogo.com:Frontend/TouchWeb.git"
+gitUrls[9]="git@git.mogo.com:Frontend/tp-rebuild.git"
+gitUrls[10]="git@git.mogo.com:Frontend/vic-gov-pc.git"
+gitUrls[11]="git@git.mogo.com:Frontend/vic-renter-embed.git"
+cd "$scanPath"
+for i in ${gitUrls[@]};do
+	name=${i##*/}
+	dirName=${name%%.git}
+	if ! [ -d  "$scanPath/$dirName" ];then
+	    git clone $i;
+    fi
+done;
+
 yellowcolor "更新所有需要扫描的仓库代码"
 ls "${scanPath}" | awk '{print $1}' | while read dir;do
     yellowcolor "正在更新仓库:${dir}"

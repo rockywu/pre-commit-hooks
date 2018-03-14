@@ -36,7 +36,12 @@ app.get('/', function (req, res) {
 
 app.get('/report/:name', function (req, res) {
   res.locals.name = req.params.name;
-  res.render("report.ejs");
+  res.render("reportDate.ejs");
+});
+app.get('/report/:name/:date', function (req, res) {
+  res.locals.name = req.params.name;
+  res.locals.date = req.params.date;
+  res.render("reportInfo.ejs");
 });
 console.log("http://localhost:8909")
 
