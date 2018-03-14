@@ -97,7 +97,7 @@
     const dv = ds.createView().source(data);
     dv.transform({
       type: 'fold',
-      fields: [ 'error', 'warning', 'all' ],
+      fields: [ 'error' ],
       key: 'type',
       value: 'problems'
     })
