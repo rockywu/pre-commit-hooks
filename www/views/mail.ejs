@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,height=device-height">
+  <title>邮件报表</title>
+  <style>::-webkit-scrollbar{display:none;}html,body{}</style>
+  <style>
+    tr:nth-child(2n){
+      background-color: #f5f5f5;
+    }
+    td {
+      padding: 10px 20px;
+    }
+    .more {
+      display: inline-block;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+<h1>各业务仓库error扫描报告</h1>
+<div class="link">
+  <table>
+    <tr>
+      <td><span>项目</span></td>
+      <% for(var i = 0; i < date.length; i++) {%>
+      <td><span><%= date[i]%></span></td>
+      <% } %>
+    </tr>
+    <% for(var j = 0; j < data.length; j++) {%>
+    <tr>
+      <td><a href="http://192.168.60.253:8909/report/<%= data[j]['name']%>"><%= data[j]['name']%></a></td>
+      <% for(var k = 0; k < data[j]['errorData'].length; k++) {%>
+      <% if(typeof data[j]['errorData'][k] === 'number') { %>
+      <td><a href="http://192.168.60.253:8909/report/<%= data[j]['name']%>/<%= date[k]%>"><%= data[j]['errorData'][k]%></a></td>
+      <% } else { %>
+      <td><span>暂无</span></td>
+      <% } %>
+      <% } %>
+    </tr>
+    <% } %>
+  </table>
+  <a class="more" href="http://192.168.60.253:8909/">查看更多详情</a>
+</div>
+</body>
+</html>
