@@ -15,27 +15,13 @@ app.use("/static", express.static(__dirname + '/static'));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-// let links = [
-//   'AM',
-//   'Minisite',
-//   'MobBS',
-//   'mogoroom-renterembed-h5',
-//   'Partner-fe',
-//   'PartnerH5',
-//   'school-pc',
-//   'school-wechat',
-//   'TouchWeb',
-//   'tp-rebuild',
-//   'vic-gov-pc',
-//   'vic-renter-embed',
-// ];
-
 //首页
 app.get('/', function (req, res) {
-  var result = fs.readdirSync(__dirname + '/../scan-rs');
+  let baseUrl = __dirname + '/../scan-rs';
+  var result = fs.readdirSync(baseUrl);
   result = (result instanceof Array) ? result : [];
   result = result.filter(function (v) {
-    return v.match(/^[^.]*$/);
+    return fs.statSync(baseUrl + '/' + v).isDirectory();
   });
   res.locals.links = result;
   res.render("index.ejs");
@@ -85,10 +71,11 @@ app.get('/mail', function (req, res) {
   var result = fs.readdirSync(baseUrl);
   result = (result instanceof Array) ? result : [];
   result = result.filter(function (v) {
-    return v.match(/^[^.]*$/);
+    return fs.statSync(baseUrl + '/' + v).isDirectory();
   });
   var data = [];
-  result.forEach(function (v) {
+  var dateData = [];
+  result.forEach(function (v, index) {
     let map = {
       name: v,
       errorData: []
@@ -96,7 +83,10 @@ app.get('/mail', function (req, res) {
     let projectName = v;
     let date = new Date();
     for (let i = 0; i < 3; i++) {
-      let scanDate = date.getFullYear() + dayAndMonthAdd0(date.getMonth() + 1) + dayAndMonthAdd0(date.getDate());
+      let scanDate = date.getFullYear().toString() + dayAndMonthAdd0(date.getMonth() + 1) + dayAndMonthAdd0(date.getDate());
+      if (index === 0) {
+        dateData.push(scanDate);
+      }
       let jsonDataStr = '[]';
       let filePath = baseUrl + '/' + projectName + '/' + scanDate + '.json'
       if (fs.existsSync(filePath)) {
@@ -113,6 +103,7 @@ app.get('/mail', function (req, res) {
   });
 
   res.locals.data = data;
+  res.locals.date = dateData;
   res.render("mail.ejs");
 });
 

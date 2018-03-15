@@ -1,4 +1,4 @@
-
+#!/usr/bin/env node
 var nodemailer = require('nodemailer')
 var smtpTransport = require('nodemailer-smtp-transport');
 var axios = require('axios');
