@@ -113,7 +113,6 @@ app.get('/mail', function (req, res) {
   });
 
   res.locals.data = data;
-  console.log(data);
   res.render("mail.ejs");
 });
 

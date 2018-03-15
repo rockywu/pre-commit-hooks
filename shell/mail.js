@@ -5,7 +5,7 @@ var axios = require('axios');
 var config = {
   //邮件配置
   email: {
-    service: 'smtp.exmail.qq.com',
+    host: 'smtp.exmail.qq.com',
     port: 465,
     user: 'fenghuan@mgzf.com',
     pass: 'Feng1993',
@@ -14,7 +14,7 @@ var config = {
 
 
 smtpTransport = nodemailer.createTransport(smtpTransport({
-  host: config.email.service,
+  host: config.email.host,
   port: config.email.port,
   auth: {
     user: config.email.user,
@@ -39,14 +39,15 @@ var sendMail = function (recipient, subject, html) {
   }, function (error, response) {
     if (error) {
       console.log(error);
+    } else {
+      console.log('发送成功')
     }
-    console.log('发送成功')
   });
 }
 
-axios.get("http://localhost:8909/mail").
+axios.get("http://127.0.0.1:8909/mail").
 then(function(res) {
-  sendMail('940083334@qq.com','这是测试邮件', res.data);
+  sendMail('940083334@qq.com','业务仓库扫描报告', res.data);
 });
 
 
