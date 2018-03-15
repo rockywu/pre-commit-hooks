@@ -17,7 +17,7 @@
       display: inline-block;
       min-width: 220px;
     }
-    .number {
+    .item {
       display: inline-block;
       min-width: 200px;
     }
@@ -33,12 +33,18 @@
   <% for(var i = 0; i < data.length; i++) {%>
   <p class="line">
     <span class="name"><%= data[i]['name']%></span>
-    <span>（今天error：</span>
-    <span class="number"><%= (typeof data[i]['errorData'][0] === 'number') ? data[i]['errorData'][0] : '无扫描数据'%>）</span>
-    <span>（昨天error：</span>
-    <span class="number"><%= (typeof data[i]['errorData'][1] === 'number') ? data[i]['errorData'][1] : '无扫描数据'%>）</span>
-    <span>（前天error：</span>
-    <span class="number"><%= (typeof data[i]['errorData'][2] === 'number') ? data[i]['errorData'][2] : '无扫描数据'%>）</span>
+    <span class="item">
+      <span>（今天error：</span>
+      <span class="number"><%= (typeof data[i]['errorData'][0] === 'number') ? data[i]['errorData'][0] : '无扫描数据'%>）</span>
+    </span>
+    <span class="item">
+      <span>（昨天error：</span>
+      <span class="number"><%= (typeof data[i]['errorData'][1] === 'number') ? data[i]['errorData'][1] : '无扫描数据'%>）</span>
+    </span>
+    <span class="item">
+      <span>（前天error：</span>
+      <span class="number"><%= (typeof data[i]['errorData'][2] === 'number') ? data[i]['errorData'][2] : '无扫描数据'%>）</span>
+    </span>
   </p>
   <% } %>
   <a class="more" href="http://192.168.60.253:8909/">查看更多详情</a>

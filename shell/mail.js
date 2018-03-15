@@ -47,7 +47,7 @@ var sendMail = function (recipient, subject, html) {
 
 axios.get("http://127.0.0.1:8909/mail").
 then(function(res) {
-  sendMail('940083334@qq.com','业务仓库扫描报告', res.data);
+  sendMail('mob-dev@mgzf.com','业务仓库扫描报告', res.data);
 });
 
 
