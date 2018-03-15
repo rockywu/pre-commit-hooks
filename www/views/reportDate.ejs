@@ -106,6 +106,9 @@
         range: [ 0, 1 ]
       }
     });
+    chart.scale('problems', {
+      min: 0
+    });
     chart.axis('date', {
       label: {
         htmlTemplate: (text, item, index) => {
