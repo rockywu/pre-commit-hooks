@@ -90,22 +90,25 @@ app.get('/mail', function (req, res) {
   var data = [];
   result.forEach(function (v) {
     let map = {
-      name: v
+      name: v,
+      errorData: []
     };
     let projectName = v;
     let date = new Date();
-    let todayScanDate = date.getFullYear() + dayAndMonthAdd0(date.getMonth() + 1) + dayAndMonthAdd0(date.getDate());
-    let jsonDataStr = fs.readFileSync(baseUrl + '/' + projectName + '/' + todayScanDate + '.json')
-    let jsonData = (jsonDataStr && JSON.parse(jsonDataStr)) || [];
-    var todayData = formatData(jsonData);
-    map.today = todayData.error;
-
-    // date.setDate(date.getDate() - 1);
-    // let yesterdayScanDate = date.getFullYear() + dayAndMonthAdd0(date.getMonth() + 1) + dayAndMonthAdd0(date.getDate());
-    // let jsonDataStr2 = fs.readFileSync(baseUrl + '/' + projectName + '/' + yesterdayScanDate + '.json');
-    // let jsonData2 = (jsonDataStr2 && JSON.parse(jsonDataStr2)) || [];
-    // var yesterdayData = formatData(jsonData2);
-    // map.yesterday = yesterdayData.error;
+    for (let i = 0; i < 3; i++) {
+      let scanDate = date.getFullYear() + dayAndMonthAdd0(date.getMonth() + 1) + dayAndMonthAdd0(date.getDate());
+      let jsonDataStr = '[]';
+      let filePath = baseUrl + '/' + projectName + '/' + scanDate + '.json'
+      if (fs.existsSync(filePath)) {
+        jsonDataStr = fs.readFileSync(filePath)
+        let jsonData = (jsonDataStr && JSON.parse(jsonDataStr)) || [];
+        var scanData = formatData(jsonData);
+        map.errorData.push(scanData.error);
+      } else {
+        map.errorData.push(null);
+      }
+      date.setDate(date.getDate() - 1);
+    }
     data.push(map);
   });
 

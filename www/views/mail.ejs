@@ -6,21 +6,42 @@
   <title>报表邮件</title>
   <style>::-webkit-scrollbar{display:none;}html,body{overflow:hidden;height:100%;}</style>
   <style>
+    .line {
+      margin: 0;
+      padding: 10px 0;
+    }
+    .line:nth-child(2n){
+      background-color: #f5f5f5;
+    }
+    .name {
+      display: inline-block;
+      min-width: 220px;
+    }
+    .number {
+      display: inline-block;
+      min-width: 200px;
+    }
+    .more {
+      display: inline-block;
+      margin-top: 40px;
+    }
   </style>
 </head>
 <body>
 <h1>业务仓库扫描报告</h1>
 <div class="link">
   <% for(var i = 0; i < data.length; i++) {%>
-  <p>
-    <span><%= data[i]['name']%></span>
+  <p class="line">
+    <span class="name"><%= data[i]['name']%></span>
     <span>（今天error：</span>
-    <span><%= data[i]['today']%></span>
-    <span>------</span>
-    <span>昨天error：</span>
-    <span><%= data[i]['yesterday']%>）</span>
+    <span class="number"><%= (typeof data[i]['errorData'][0] === 'number') ? data[i]['errorData'][0] : '无扫描数据'%>）</span>
+    <span>（昨天error：</span>
+    <span class="number"><%= (typeof data[i]['errorData'][1] === 'number') ? data[i]['errorData'][1] : '无扫描数据'%>）</span>
+    <span>（前天error：</span>
+    <span class="number"><%= (typeof data[i]['errorData'][2] === 'number') ? data[i]['errorData'][2] : '无扫描数据'%>）</span>
   </p>
   <% } %>
+  <a class="more" href="http://192.168.60.253:8909/">查看更多详情</a>
 </div>
 </body>
 </html>
