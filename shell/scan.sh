@@ -61,7 +61,7 @@ packages=" \
     eslint-plugin-node \
     eslint-plugin-promise \
     eslint-plugin-standard \
-    eslint-plugin-vue \
+    eslint-plugin-vue@~4.2.2 \
     vue-eslint-parser";
 
 npmCommand=$(command -v cnpm);
