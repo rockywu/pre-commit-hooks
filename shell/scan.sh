@@ -89,6 +89,7 @@ gitUrls[8]="git@git.mogo.com:Frontend/TouchWeb.git"
 gitUrls[9]="git@git.mogo.com:Frontend/tp-rebuild.git"
 gitUrls[10]="git@git.mogo.com:Frontend/vic-gov-pc.git"
 gitUrls[11]="git@git.mogo.com:Frontend/vic-renter-embed.git"
+gitUrls[12]="git@git.mogo.com:Frontend/Mob-fe.git"
 cd "$scanPath"
 for i in ${gitUrls[@]};do
 	name=${i##*/}
