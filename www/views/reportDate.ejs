@@ -27,9 +27,11 @@
     }
     .scanDate {
       text-decoration: none;
-      color: #666666;
       position: relative;
+      display: inline-block;
       top: 20px;
+      font-size: 13px;
+      transform: rotate(25deg);
     }
   </style>
 </head>
@@ -91,7 +93,7 @@
   });
   function drawChat(data) {
     data.sort((a, b) => {
-      return a.date > b.date;
+      return a.date > b.date ? 1 : -1;
     })
     const ds = new DataSet();
     const dv = ds.createView().source(data);
