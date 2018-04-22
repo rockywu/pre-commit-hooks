@@ -110,7 +110,7 @@ ls "${scanPath}" | awk '{print $1}' | while read dir;do
 done;
 
 yellowcolor "更新vue-eslint规范"
-#node "$shellPath/update-eslintrc.js" "$rootPath/package.json" "$cacheVueEslintrcPath"
+node "$shellPath/update-eslintrc.js" "$rootPath/package.json" "$cacheVueEslintrcPath"
 
 
 yellowcolor "更新后进行代码扫描"
