@@ -54,7 +54,7 @@ function httpRequest (fileUrl, cb) {
 
   timeoutHandle = setTimeout(function () {
     req.abort();
-  }, 5000);
+  }, 3000);
 }
 
 //下载新.eslintrc.js

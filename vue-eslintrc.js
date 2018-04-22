@@ -30,11 +30,13 @@ module.exports = {
     /**
      * JS standard基本配置
      */
-    'semi': ['warn', 'always'], //语句强制分号结尾
-    'semi-spacing': ['warn', {'before': false, 'after': true}],//分号结尾空格问题
+    'semi': ['off', 'always'], //语句强制分号结尾
+    'semi-spacing': ['off', {'before': false, 'after': true}],//分号结尾空格问题
     'no-debugger': process.env.NODE_ENV === 'production' ? 'error' : 'off', //是否禁用debugger
     'no-console': process.env.NODE_ENV === 'production' ? 'warn' : 'off', //是否禁用console
     'no-multiple-empty-lines': [1, {'max': 2}], // 空行最多不能超过2行
+    'quotes' : ['off'], //关闭单双引号检查
+
 
     /**
      * Vue基本配置
@@ -46,7 +48,7 @@ module.exports = {
      * support comment-directives in <template>
      * https://github.com/vuejs/eslint-plugin-vue/blob/master/docs/rules/comment-directive.md
      */
-    'vue/comment-directive': ['warn'],
+    'vue/comment-directive': 'warn',
 
     /**
      * 防止在运用jsx规范，被标记为未被使用
@@ -187,14 +189,14 @@ module.exports = {
      * require v-bind:key with v-for directives
      * https://github.com/vuejs/eslint-plugin-vue/blob/master/docs/rules/require-v-for-key.md
      */
-    'vue/require-v-for-key': 'error',
+    'vue/require-v-for-key': 'off',
 
     /**
      * prop 的默认值必须匹配它的类型
      * enforce props default values to be valid
      * https://github.com/vuejs/eslint-plugin-vue/blob/master/docs/rules/require-valid-default-prop.md
      */
-    'vue/require-valid-default-prop': 'error',
+    'vue/require-valid-default-prop': 'off',
 
     /**
      * 计算属性必须有返回值
@@ -341,20 +343,20 @@ module.exports = {
      * enforce self-closing style
      * https://github.com/vuejs/eslint-plugin-vue/blob/master/docs/rules/html-self-closing.md
      */
-    'vue/html-self-closing': ['warn', {
-      'html': {
-        'void': 'never',
-        'normal': 'always',
-        'component': 'always'
-      }
-    }],
+    'vue/html-self-closing': 'off',
 
     /**
      * 限制每行允许的最多属性数量
      * enforce the maximum number of attributes per line
      * https://github.com/vuejs/eslint-plugin-vue/blob/master/docs/rules/max-attributes-per-line.md
      */
-    'vue/max-attributes-per-line': 'warn',
+    'vue/max-attributes-per-line': ['warn', {
+      "singleline": 4,
+      "multiline": {
+        "max": 2,
+        "allowFirstLine": true
+      }
+    }],
 
     /**
      * 限制 {{  }} 的风格
@@ -416,6 +418,14 @@ module.exports = {
      */
 
     /**
+     * 强制属性排序
+     * --fix
+     * enforce order of attributes
+     * https://github.com/vuejs/eslint-plugin-vue/blob/master/docs/rules/attributes-order.md
+     */
+    'vue/attributes-order' : 'off',
+
+    /**
      * 属性值必须用双引号括起来
      * --fix
      * enforce quotes style of HTML attributes
@@ -464,6 +474,14 @@ module.exports = {
      * https://github.com/vuejs/eslint-plugin-vue/blob/master/docs/rules/html-closing-bracket-spacing.md
      */
     'vue/html-closing-bracket-spacing': 'warn',
+
+    /**
+     * 强制属性名使用特定格式 "camelCase|snake_case" 驼峰或下划线
+     * enforce specific casing for the Prop name in Vue components
+     * --fix
+     * https://github.com/vuejs/eslint-plugin-vue/blob/master/docs/rules/prop-name-casing.md
+     */
+    'vue/prop-name-casing' : 'off',
 
     /**
      * script标签内的缩进 暂时关闭(当代码中出现!开头的语句时，会导致shell异常退出,待后续优化)
