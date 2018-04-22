@@ -28,8 +28,6 @@
   "homepage": "https://github.com/rockywu/pre-commit-hooks#readme",
   "dependencies": {
     "axios": "^0.18.0",
-    "nodemailer": "^4.6.2",
-    "nodemailer-smtp-transport": "^2.7.4",
     "pre-commit": "^1.2.2"
   },
   "devDependencies": {
