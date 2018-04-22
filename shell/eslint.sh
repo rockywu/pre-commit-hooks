@@ -84,11 +84,9 @@ if [ "$model" == "eslintrc" ];then
     exit 0;
 fi
 
-#更新eslintrc.js
-if [ "$model" == "update" ];then
-    yellowcolor "pre-commit-hooks 更新eslintrc.js"
-    eval "node $basePath/update-eslintrc.js $basePath/../package.json $basePath/../vue-eslintrc.js"
-fi
+#默认执行更新eslintrc.js
+yellowcolor "pre-commit-hooks 更新eslintrc.js"
+eval "node $basePath/update-eslintrc.js $basePath/../package.json $basePath/../vue-eslintrc.js"
 
 command="node $eslintBin \
   --ignore-path "$projectPath/.eslintignore" \
