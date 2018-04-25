@@ -36,11 +36,20 @@
             font-size: 30px;
             padding-right:10px;
         }
+        .tip {
+            font-size: 15px;
+            color: #666666;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h3><span class="proname"><%= name%></span><br />扫描报告：<span class="install">pre-commit-hooks安装情况：<strong></strong></span></h3>
+        <h3>
+            <span class="proname"><%= name%></span>
+            <a href="/api/<%= name%>/<%= date%>.json" class="tip">(查看原始数据)</a>
+            <br />
+            扫描报告：<span class="install">pre-commit-hooks安装情况：<strong></strong></span>
+        </h3>
         <pre id="message" class="msg"></pre>
         <div id="mountNode"></div>
     </div>
