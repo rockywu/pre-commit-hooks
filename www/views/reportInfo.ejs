@@ -69,10 +69,11 @@
         if(v === null) return;
         var [type, name, cnt] = v.split(":");
         type = type == "^" ? "error" : type;
+        let count = parseInt(cnt, 10) || 0;
         var data = {
-            item : name,
+            item : name + '(' + count + ')',
             type : type,
-            count: parseInt(cnt, 10) || 0
+            count: count
         };
         if(source[type]) {
             source[type].push(data);
