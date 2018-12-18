@@ -21,19 +21,24 @@ try {
 } catch (e) {
   //项目中eslintrc不存在
 }
+var authContent = require(authEslintrcPath);
 
 /**
  * 创建eslint合并非统一配置
  */
 try {
   //存在.eslintrc.js时，使用标准配置进行合并
-  content = Object.assign({}, content || {}, require(authEslintrcPath));
+  var projectGlobals = content.globals || {};
+  var authGlobals = authContent.globals || {};
+  content = Object.assign({}, authContent, {
+    globals : Object.assign({}, projectGlobals, authGlobals)
+  });
   //手动屏蔽eslint-plugin-html规则
   if (content.plugins instanceof Array) {
     content.plugins = content.plugins.filter(function (val) {
       return val != 'html' && val != 'eslint-plugin-html';
     });
-    }
+  }
   fs.writeFileSync(cacheEslintrcPath, 'module.exports = ' + JSON.stringify(content, null, 2) + ';', 'utf-8');
 } catch (e) {
   console.log(e);
